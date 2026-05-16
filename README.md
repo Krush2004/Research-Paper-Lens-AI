@@ -46,7 +46,7 @@
 ```text
 Research Paper Lens System/
 │
-├── backend/                  # FastAPI Backend Server
+├── backend/                  # FastAPI Backend Server (Auto-managed by Frontend)
 │   ├── core/
 │   │   ├── engine.py         # LLM Prompt Synthesis & Generators (Quizzes, Code, Diagrams)
 │   │   ├── parser.py         # PyMuPDF Document Ingestion & Metadata Extraction
@@ -56,7 +56,7 @@ Research Paper Lens System/
 │   ├── config.py             # Environment Variables & Settings
 │   └── main.py               # FastAPI Routes & App Initialization
 │
-├── frontend/                 # Streamlit Frontend Client
+├── frontend/                 # Streamlit Frontend Client (Launches Backend Automatically)
 │   ├── assets/
 │   │   └── styles.css        # Premium Glassmorphism & UI Animations
 │   └── app.py                # Main Application Layout & Dashboard
@@ -147,22 +147,19 @@ QDRANT_API_KEY=your_qdrant_api_key
 ```
 *Note: The system automatically defaults to `meta-llama/llama-3.1-8b-instruct` and `BAAI/bge-base-en-v1.5` for embeddings in `backend/config.py`.*
 
-### Step 5: Start the Servers
-You will need **two separate terminals** running simultaneously to operate the decoupled architecture.
+### Step 5: Launch the Platform
+The system features an **Integrated Lifecycle Manager**. You only need to run the Streamlit frontend; it will automatically detect if the FastAPI backend is running and launch it in the background if necessary.
 
-**Terminal 1: Start the FastAPI Backend**
-```bash
-# Ensure your virtual environment is active!
-python -m backend.main
-```
-*Wait for the `✅ All engines ready!` message.*
-
-**Terminal 2: Start the Streamlit Frontend**
 ```bash
 # Ensure your virtual environment is active!
 streamlit run frontend/app.py
 ```
-*The UI will automatically open in your browser at `http://localhost:8501`.*
+
+**What happens behind the scenes?**
+1.  **Port Check**: The system checks if port `8000` is active.
+2.  **Auto-Boot**: If not, it spawns the FastAPI backend as a background process.
+3.  **Health Check**: The UI displays an initialization status while waiting for the AI engines to fully load.
+4.  **Ready**: Once the backend responds, the full research dashboard is unlocked.
 
 ---
 
