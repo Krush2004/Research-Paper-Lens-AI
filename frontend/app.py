@@ -32,7 +32,7 @@ if not st.session_state.backend_ready:
                 response = requests.get("http://localhost:8000/", timeout=2)
                 if response.status_code == 200:
                     st.session_state.backend_ready = True
-                    placeholder.write("🚀 All AI systems are online and ready! ✨")
+                    placeholder.write(" ✨ All AI systems are online and ready! ✨")
                     status.update(label="✅ AI Engines Ready!", state="complete", expanded=False)
                     break
             except:
