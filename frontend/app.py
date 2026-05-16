@@ -4,6 +4,20 @@ import json
 import time
 import re
 import os
+import subprocess
+import sys
+
+# ── Auto-Start Backend (for Streamlit Cloud Deployment) ──
+if "backend_started" not in st.session_state:
+    try:
+        # Check if backend is already reachable
+        requests.get("http://localhost:8000/", timeout=1)
+    except:
+        # If not, launch the FastAPI server in a background process
+        # We use sys.executable to ensure we use the same Python environment
+        subprocess.Popen([sys.executable, "-m", "backend.main"])
+        time.sleep(5)  # Wait for engines to initialize (embeddings + ML models)
+    st.session_state.backend_started = True
 
 # ── Page Config ──
 st.set_page_config(
