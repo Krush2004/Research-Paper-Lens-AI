@@ -1,0 +1,26 @@
+# ── Core Backend ──
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+python-dotenv
+requests
+
+# ── Frontend ──
+streamlit
+
+# ── PDF Parsing ──
+PyMuPDF
+
+# ── AI & RAG Ecosystem ──
+langchain-core
+langchain-openai
+langchain-text-splitters
+langchain-huggingface
+langchain-qdrant
+
+# ── Vector Database ──
+qdrant-client
+
+# ── Machine Learning ──
+scikit-learn
