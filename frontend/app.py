@@ -7,11 +7,15 @@ import os
 import subprocess
 import sys
 
+import socket
+
 # ── Auto-Start Backend (for Streamlit Cloud Deployment) ──
+def is_port_in_use(port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(('localhost', port)) == 0
+
 if "backend_started" not in st.session_state:
-    try:
-        requests.get("http://localhost:8000/", timeout=1)
-    except:
+    if not is_port_in_use(8000):
         subprocess.Popen([sys.executable, "-m", "backend.main"])
     st.session_state.backend_started = True
 
