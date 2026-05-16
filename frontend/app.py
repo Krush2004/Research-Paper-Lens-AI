@@ -10,14 +10,30 @@ import sys
 # ── Auto-Start Backend (for Streamlit Cloud Deployment) ──
 if "backend_started" not in st.session_state:
     try:
-        # Check if backend is already reachable
         requests.get("http://localhost:8000/", timeout=1)
     except:
-        # If not, launch the FastAPI server in a background process
-        with st.spinner("🚀 Waking up AI Engines... (May take 10-20 seconds on first run)"):
-            subprocess.Popen([sys.executable, "-m", "backend.main"])
-            time.sleep(15)  # Increased wait time for heavy ML models + embeddings
+        subprocess.Popen([sys.executable, "-m", "backend.main"])
     st.session_state.backend_started = True
+
+# ── Health Check (Ensures AI engines are fully loaded) ──
+if "backend_ready" not in st.session_state:
+    st.session_state.backend_ready = False
+
+if not st.session_state.backend_ready:
+    with st.status("🧠 Initializing AI Research Engines...", expanded=True) as status:
+        st.write("Connecting to backend...")
+        for _ in range(30): # Wait up to 60 seconds
+            try:
+                response = requests.get("http://localhost:8000/", timeout=2)
+                if response.status_code == 200:
+                    st.session_state.backend_ready = True
+                    status.update(label="✅ AI Engines Ready!", state="complete", expanded=False)
+                    break
+            except:
+                time.sleep(2)
+        if not st.session_state.backend_ready:
+            st.error("❌ Backend initialization timed out. Please refresh the page.")
+            st.stop()
 
 # ── Page Config ──
 st.set_page_config(
