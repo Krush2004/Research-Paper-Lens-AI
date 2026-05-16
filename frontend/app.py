@@ -14,9 +14,9 @@ if "backend_started" not in st.session_state:
         requests.get("http://localhost:8000/", timeout=1)
     except:
         # If not, launch the FastAPI server in a background process
-        # We use sys.executable to ensure we use the same Python environment
-        subprocess.Popen([sys.executable, "-m", "backend.main"])
-        time.sleep(5)  # Wait for engines to initialize (embeddings + ML models)
+        with st.spinner("🚀 Waking up AI Engines... (May take 10-20 seconds on first run)"):
+            subprocess.Popen([sys.executable, "-m", "backend.main"])
+            time.sleep(15)  # Increased wait time for heavy ML models + embeddings
     st.session_state.backend_started = True
 
 # ── Page Config ──
