@@ -25,12 +25,14 @@ if "backend_ready" not in st.session_state:
 
 if not st.session_state.backend_ready:
     with st.status("🧠 Initializing AI Research Engines...", expanded=True) as status:
-        st.write("Connecting to backend...")
+        placeholder = st.empty()
+        placeholder.write("Connecting to backend...")
         for _ in range(30): # Wait up to 60 seconds
             try:
                 response = requests.get("http://localhost:8000/", timeout=2)
                 if response.status_code == 200:
                     st.session_state.backend_ready = True
+                    placeholder.empty() # This removes the "Connecting..." message
                     status.update(label="✅ AI Engines Ready!", state="complete", expanded=False)
                     break
             except:
