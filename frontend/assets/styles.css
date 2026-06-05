@@ -53,9 +53,6 @@ header,
     background-color: transparent !important;
     pointer-events: none !important;
 }
-[data-testid="stToolbar"] {
-    display: none !important;
-}
 [data-testid="collapsedControl"],
 [data-testid="stSidebarCollapsedControl"] {
     display: flex !important;
