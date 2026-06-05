@@ -46,9 +46,6 @@
 
 /* ── Hide Streamlit default header/toolbar ── */
 header[data-testid="stHeader"] {
-    background: transparent !important;
-}
-[data-testid="stToolbar"] {
     display: none !important;
 }
 
