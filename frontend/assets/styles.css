@@ -44,19 +44,29 @@
     color: var(--text-primary) !important;
 }
 
-/* ── Hide Streamlit default toolbar but keep sidebar arrow ── */
+/* ── Header and Sidebar Toggle ── */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+}
 [data-testid="stToolbar"] {
     display: none !important;
 }
-[data-testid="collapsedControl"] {
+[data-testid="collapsedControl"],
+[data-testid="stSidebarCollapsedControl"] {
     display: flex !important;
     z-index: 999999 !important;
-    color: var(--primary-light) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 50% !important;
+}
+[data-testid="collapsedControl"] svg,
+[data-testid="stSidebarCollapsedControl"] svg {
+    fill: white !important;
+    color: white !important;
 }
 
 /* Fix top padding */
 .block-container {
-    padding-top: 3rem !important;
+    padding-top: 1.5rem !important;
     padding-bottom: 2rem !important;
     max-width: 1400px;
 }
