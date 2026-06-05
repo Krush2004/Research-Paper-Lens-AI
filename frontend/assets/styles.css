@@ -69,9 +69,9 @@ header,
 
 /* Fix top padding */
 .block-container {
-    padding-top: 1.5rem !important;
+    padding-top: 3.5rem !important;
     padding-bottom: 2rem !important;
-    max-width: 1400px;
+    max-width: 1000px;
 }
 
 /* ── Sidebar ── */
